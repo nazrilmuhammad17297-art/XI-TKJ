@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XI TKJ - Aplikasi Kelas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="screen">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo"></div>
+        <h1>XI TKJ</h1>
+        <p>Aplikasi Kelas Teknik Komputer & Jaringan</p>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="username" placeholder="Masukkan username" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Masukkan password" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login Admin</button>
+        <p class="login-hint">Guest mode: klik "Masuk sebagai Siswa"</p>
+        <button type="button" class="btn btn-secondary" id="guest-btn">Masuk sebagai Siswa</button>
+      </form>
+      <p class="credit">Dibuat oleh Nazril</p>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" class="screen hidden">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <span class="logo-small"></span>
+        <h2>XI TKJ</h2>
+      </div>
+      <div class="header-right">
+        <span id="user-role" class="badge"></span>
+        <button id="logout-btn" class="btn-icon" title="Logout">🚪</button>
+      </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+      <button class="nav-btn active" data-page="beranda"> Beranda</button>
+      <button class="nav-btn" data-page="jadwal-mapel"> Jadwal Mapel</button>
+      <button class="nav-btn" data-page="jadwal-piket"> Jadwal Piket</button>
+      <button class="nav-btn" data-page="organisasi"> Organisasi</button>
+      <button class="nav-btn" data-page="absensi"> Absensi</button>
+      <button class="nav-btn" data-page="tugas"> Tugas</button>
+      <button class="nav-btn admin-only hidden" data-page="admin">⚙️ Admin</button>
+    </nav>
+
+    <!-- PAGES -->
+    <main class="content">
+      <!-- BERANDA -->
+      <section id="beranda" class="page active">
+        <div class="welcome-card">
+          <h2>Selamat Datang di XI TKJ! </h2>
+          <p>Aplikasi resmi kelas Teknik Komputer & Jaringan</p>
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-icon"></div>
+            <h3>Wali Kelas</h3>
+            <p>Muh. Riza Palupy, S.H</p>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"></div>
+            <h3>Ketua Kelas</h3>
+            <p>Rafi Muwahid</p>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"></div>
+            <h3>Wakil Ketua</h3>
+            <p>Muhammad Azmi Arvan Apriliano</p>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"></div>
+            <h3>Hari Ini</h3>
+            <p id="hari-ini"></p>
+          </div>
+        </div>
+        <div class="notif-section">
+          <h3>🔔 Notifikasi Tugas Terbaru</h3>
+          <div id="notif-list" class="notif-list"></div>
+        </div>
+      </section>
+
+      <!-- JADWAL MAPEL -->
+      <section id="jadwal-mapel" class="page">
+        <h2 class="page-title"> Jadwal Mata Pelajaran XI TKJ</h2>
+        <div class="jadwal-grid" id="jadwal-mapel-container"></div>
+      </section>
+
+      <!-- JADWAL PIKET -->
+      <section id="jadwal-piket" class="page">
+        <h2 class="page-title"> Jadwal Piket / Cleaning Schedule</h2>
+        <div class="piket-grid" id="jadwal-piket-container"></div>
+      </section>
+
+      <!-- ORGANISASI -->
+      <section id="organisasi" class="page">
+        <h2 class="page-title"> Organisasi Kelas XI TKJ</h2>
+        <div class="org-grid">
+          <div class="org-card wali">
+            <div class="org-icon"></div>
+            <h3>Wali Kelas</h3>
+            <p class="org-name">Muh. Riza Palupy, S.H</p>
+          </div>
+          <div class="org-card ketua">
+            <div class="org-icon"></div>
+            <h3>Ketua Kelas</h3>
+            <p class="org-name">Rafi Muwahid</p>
+          </div>
+          <div class="org-card wakil">
+            <div class="org-icon"></div>
+            <h3>Wakil Ketua Kelas</h3>
+            <p class="org-name">Muhammad Azmi Arvan Apriliano</p>
+          </div>
+          <div class="org-card keamanan">
+            <div class="org-icon"></div>
+            <h3>Seksi Keamanan</h3>
+            <p class="org-name">Arga Pratama Muhandar</p>
+          </div>
+          <div class="org-card kebersihan">
+            <div class="org-icon"></div>
+            <h3>Seksi Kebersihan</h3>
+            <p class="org-name">Kiki Ardiansyah</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABSENSI -->
+      <section id="absensi" class="page">
+        <h2 class="page-title"> Absensi Kelas</h2>
+        <div class="absensi-controls">
+          <input type="date" id="absensi-date" />
+          <button class="btn btn-primary" id="load-absensi">Muat Absensi</button>
+        </div>
+        <div class="absensi-table-wrap">
+          <table class="absensi-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Status</th>
+                <th class="admin-only hidden">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="absensi-body"></tbody>
+          </table>
+        </div>
+        <div class="absensi-summary" id="absensi-summary"></div>
+      </section>
+
+      <!-- TUGAS -->
+      <section id="tugas" class="page">
+        <h2 class="page-title"> Daftar Tugas</h2>
+        <div id="tugas-list" class="tugas-list"></div>
+      </section>
+
+      <!-- ADMIN PANEL -->
+      <section id="admin" class="page">
+        <h2 class="page-title"> Panel Admin</h2>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h3>➕ Tambah Tugas Baru</h3>
+            <form id="add-tugas-form">
+              <div class="form-group">
+                <label>Judul Tugas</label>
+                <input type="text" id="tugas-judul" required placeholder="Contoh: PR Matematika" />
+              </div>
+              <div class="form-group">
+                <label>Mata Pelajaran</label>
+                <input type="text" id="tugas-mapel" required placeholder="Contoh: MTK" />
+              </div>
+              <div class="form-group">
+                <label>Deadline</label>
+                <input type="date" id="tugas-deadline" required />
+              </div>
+              <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea id="tugas-deskripsi" rows="3" placeholder="Detail tugas..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Simpan Tugas & Kirim Notif</button>
+            </form>
+          </div>
+          <div class="admin-card">
+            <h3> Kirim Pengumuman</h3>
+            <form id="pengumuman-form">
+              <div class="form-group">
+                <label>Isi Pengumuman</label>
+                <textarea id="pengumuman-text" rows="4" required placeholder="Tulis pengumuman..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Kirim Pengumuman</button>
+            </form>
+          </div>
+          <div class="admin-card">
+            <h3> Kelola Tugas</h3>
+            <div id="admin-tugas-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>XI TKJ © 2025 • Dibuat oleh <strong>Nazril</strong></p>
+    </footer>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
